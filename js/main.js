@@ -78,8 +78,7 @@ function render() {
 // Text utility
 
 var texts = [
-    [4*20, "0123456789"],
-    [3*20, ""],
+    [2*20, ""],
     [4*20, "hi, i'm dcode!"],
     [4*20, ""],
     [4*20, "this is the game of life,"],
