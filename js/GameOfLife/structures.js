@@ -181,7 +181,7 @@ var structures = {
             [0,1,1]
         ],
 
-        "Leightweight saceship": [
+        "Lightweight spaceship": [
             [1,0,0,1,0],
             [0,0,0,0,1],
             [1,0,0,0,1],
