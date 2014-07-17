@@ -78,6 +78,7 @@ function render() {
 // Text utility
 
 var texts = [
+    [4*20, "0123456789"],
     [3*20, ""],
     [4*20, "hi, i'm dcode!"],
     [4*20, ""],
@@ -129,13 +130,13 @@ update.count = 0;
 
 function tap(x, y) {
     var structureKey = document.getElementById('structures').value,
+        key,
         structure;
     if (structureKey === '')
-        structure = randomStructure();
-    else {
-        var k = structureKey.split(';');
-        structure = structures[k[0]][k[1]];
-    }
+        key = randomStructure();
+    else
+        key = structureKey.split(';');
+    structure = structures[key[0]][key[1]];
     var colorKey = document.getElementById('colors').value,
         color;
     if (colorKey === '')
@@ -143,6 +144,8 @@ function tap(x, y) {
     else
         color = parseInt(colorKey, 10);
     game.set(x, y, structure, color, !running);
+    texts.splice(texts.index, 1, [2*20, key[1].toLowerCase()]);
+    update.count = 0;
 }
 
 canvas.onmousedown = function(e) {

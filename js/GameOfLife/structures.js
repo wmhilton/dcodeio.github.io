@@ -623,13 +623,12 @@ var structures = {
 };
 
 function randomStructure() {
-    var structs = [],
+    var skeys = [],
         keys = Object.keys(structures);
     for (var i=0, k=keys.length; i<k; ++i) {
         var innerKeys = Object.keys(structures[keys[i]]);
-        for (var j=0, l=innerKeys.length; j<l; ++j) {
-            structs.push(structures[keys[i]][innerKeys[j]]);
-        }
+        for (var j=0, l=innerKeys.length; j<l; ++j)
+            skeys.push([keys[i], innerKeys[j]]);
     }
-    return structs[(Math.random()*structs.length)|0];
+    return skeys[(Math.random()*skeys.length)|0];
 }
