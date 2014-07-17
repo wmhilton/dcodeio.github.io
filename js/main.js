@@ -143,7 +143,7 @@ function tap(x, y) {
     else
         color = parseInt(colorKey, 10);
     game.set(x, y, structure, color, !running);
-    texts.splice(texts.index, 1, [2*20, key[1].toLowerCase()]);
+    texts.splice(texts.index, texts[texts.index][0] === Infinity ? 0 : 1, [2*20, key[1].toLowerCase()]);
     update.count = 0;
 }
 
