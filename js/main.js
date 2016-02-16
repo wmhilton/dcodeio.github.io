@@ -189,6 +189,8 @@ function clearGame() {
 
 game.set((cols/2+12)|0, (rows/2)|0, structures["Oscillators"]["Unknown A"], 2);
 game.set((cols/2-12)|0, (rows/2)|0, structures["Oscillators"]["Unknown A"], 0);
-onResize();
-setInterval(update, 50);
-setTimeout(randomTap, getRandomInt(1,15)*1000);
+document.addEventListener("DOMContentLoaded", function(event) { 
+  setTimeout(onResize, 5000);
+  setInterval(update, 50);
+  setTimeout(randomTap, getRandomInt(1,15)*1000);
+})
