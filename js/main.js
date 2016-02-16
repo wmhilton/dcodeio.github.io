@@ -12,13 +12,14 @@ var colors = ["#69F", "#6F9", "#F66"],
 
 // Handle resize
 
-window.onresize = function() {
+function onResize () {
     cols = (window.innerWidth/scale)|0;
     rows = (window.innerHeight/scale)|0;
     canvas.width = (cols+1)*scale;
     canvas.height = (rows+1)*scale;
     game.resize(cols, rows);
 };
+window.onresize = onResize
 
 // Renderer
 
@@ -188,6 +189,6 @@ function clearGame() {
 
 game.set((cols/2+12)|0, (rows/2)|0, structures["Oscillators"]["Unknown A"], 2);
 game.set((cols/2-12)|0, (rows/2)|0, structures["Oscillators"]["Unknown A"], 0);
-
+onResize();
 setInterval(update, 50);
 setTimeout(randomTap, getRandomInt(1,15)*1000);
