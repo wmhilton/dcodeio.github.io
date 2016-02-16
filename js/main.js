@@ -193,5 +193,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     game.set((cols/2-12)|0, (rows/2)|0, structures["Oscillators"]["Unknown A"], 0);
     setInterval(update, 50);
     setTimeout(randomTap, getRandomInt(1,15)*1000);
-  }, 2000);
+  }, 1000);
 })
+
+// WHAT IS GOIGN ON, DISPLAYFUSION?
+var sheesh = setInterval(onResize, 1000);
+setTimeout(function() { window.clearInterval(sheesh); }, 10000);
