@@ -19,7 +19,6 @@ function onResize () {
     canvas.height = (rows+1)*scale;
     game.resize(cols, rows);
 };
-window.onresize = onResize
 
 // Renderer
 
@@ -186,11 +185,11 @@ function clearGame() {
 })();
 
 // Initialize
-
-game.set((cols/2+12)|0, (rows/2)|0, structures["Oscillators"]["Unknown A"], 2);
-game.set((cols/2-12)|0, (rows/2)|0, structures["Oscillators"]["Unknown A"], 0);
-document.addEventListener("DOMContentLoaded", function(event) { 
-  setTimeout(onResize, 5000);
+document.addEventListener("DOMContentLoaded", function(event) {
+  onResize();
+  window.onresize = onResize;
+  game.set((cols/2+12)|0, (rows/2)|0, structures["Oscillators"]["Unknown A"], 2);
+  game.set((cols/2-12)|0, (rows/2)|0, structures["Oscillators"]["Unknown A"], 0);
   setInterval(update, 50);
   setTimeout(randomTap, getRandomInt(1,15)*1000);
 })
