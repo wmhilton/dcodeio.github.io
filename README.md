@@ -1,1 +1,1 @@
-Just my personal website featuring Conway's Game of Life. Feel free to explore.
+forked from [dcodeIO/dcodeio.github.io](https://github.com/dcodeIO/dcodeio.github.io)
