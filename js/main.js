@@ -75,76 +75,41 @@ function render() {
     ctx.restore();
 }
 
-// Text utility
-
-var texts = [
-    [2*20, ""],
-    [4*20, "hi, i'm dcode!"],
-    [4*20, ""],
-    [4*20, "this is the game of life,"],
-    [4*20, "devised by john conway in 1970."],
-    [2*20, ""],
-    [4*20, "tap to play god."],
-    [8*20, ""],
-    [4*20, "have a nice day."],
-    [Infinity, ""]
-];
-texts.index = 0;
-
-function text(x, y, str) {
-    var char,
-        ix, iy, w, mw;
-    for (var i=0; i<str.length; ++i) {
-        char = alphabet[str.charAt(i)];
-        if (!char) continue;
-        mw = 0;
-        for (iy=0; iy<char.length; ++iy) {
-            w = char[iy].length;
-            if (w > mw) mw = w;
-            for (ix=0;ix<w; ++ix)
-                if (char[iy][ix])
-                    light(x+ix, y+iy, "#f90");
-        }
-        x += mw;
-    }
-}
+// Text utility - removed from screensaver version
 
 // Step update
 
 function update() {
     // Render
     render();
-    var t = texts[texts.index];
-    if (t[0] !== "") text(2, 2, t[1]);
     // Step
-    if (update.count >= t[0])
-        update.count = 0,
-        texts.index = (texts.index+1)%texts.length;
     if (running) game.step();
     update.count++;
 }
 update.count = 0;
 
-// Mouse input
+// Returns a random integer between min (included) and max (excluded)
+// Using Math.round() will give you a non-uniform distribution!
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 function tap(x, y) {
-    var structureKey = document.getElementById('structures').value,
-        key,
-        structure;
-    if (structureKey === '')
-        key = randomStructure();
-    else
-        key = structureKey.split(';');
+    var key, structure;
+    key = randomStructure();
     structure = structures[key[0]][key[1]];
-    var colorKey = document.getElementById('colors').value,
-        color;
-    if (colorKey === '')
-        color = (Math.random()*colors.length)|0;
-    else
-        color = parseInt(colorKey, 10);
+    var color;
+    color = (Math.random()*colors.length)|0;
     game.set(x, y, structure, color, !running);
-    texts.splice(texts.index, texts[texts.index][0] === Infinity ? 0 : 1, [2*20, key[1].toLowerCase()]);
     update.count = 0;
+}
+
+function randomTap() {
+    var x, y;
+    x = getRandomInt(0, cols);
+    y = getRandomInt(0, rows);
+    tap(x,y);
+    setTimeout(randomTap, getRandomInt(1,15)*1000);
 }
 
 canvas.onmousedown = function(e) {
@@ -155,20 +120,16 @@ canvas.onmousedown = function(e) {
 
 // Controls
 
-var running = false;
+var running = true;
 
-function playGame() {
-    if (!running) {
-        running = true;
-    }
-    return false;
-}
-
-function pauseGame() {
-    if (running) {
-        running = false;
-    }
-    return false;
+function toggleRunning() {
+  running = !running;
+  if (running) {
+    document.getElementById('toggleRunning').innerHTML = '<i class="icon-pause"></i>';
+  } else {
+    document.getElementById('toggleRunning').innerHTML = '<i class="icon-play"></i>';
+  }
+  return false;
 }
 
 var lastState = null;
@@ -229,4 +190,4 @@ game.set((cols/2+12)|0, (rows/2)|0, structures["Oscillators"]["Unknown A"], 2);
 game.set((cols/2-12)|0, (rows/2)|0, structures["Oscillators"]["Unknown A"], 0);
 
 setInterval(update, 50);
-playGame();
+setTimeout(randomTap, getRandomInt(1,15)*1000);
