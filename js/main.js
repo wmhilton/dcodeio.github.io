@@ -112,25 +112,7 @@ function randomTap() {
     setTimeout(randomTap, getRandomInt(1,15)*1000);
 }
 
-canvas.onmousedown = function(e) {
-    if (!e) e = window.event;
-    tap((e.pageX/scale)|0, (e.pageY/scale)|0);
-    return false;
-};
-
-// Controls
-
 var running = true;
-
-function toggleRunning() {
-  running = !running;
-  if (running) {
-    document.getElementById('toggleRunning').innerHTML = '<i class="icon-pause"></i>';
-  } else {
-    document.getElementById('toggleRunning').innerHTML = '<i class="icon-play"></i>';
-  }
-  return false;
-}
 
 var lastState = null;
 
@@ -156,34 +138,6 @@ function clearGame() {
     return false;
 }
 
-(function() {
-    var select = document.getElementById('structures'),
-        keys = Object.keys(structures);
-    for (var i=0; i<keys.length; ++i) {
-        var group = document.createElement('optgroup');
-        group.label = keys[i];
-        select.appendChild(group);
-        var subKeys = Object.keys(structures[keys[i]]);
-        for (var j=0; j<subKeys.length; ++j) {
-            var elem = document.createElement('option');
-            elem.value = keys[i]+";"+subKeys[j];
-            elem.innerHTML = subKeys[j];
-            group.appendChild(elem);
-        }
-    }
-    /* var continuous = document.getElementById('continuous-cb');
-    continuous.onchange = function() {
-        game.continuous = !!continuous.checked;
-    };
-    var scaleSelect = document.getElementById('scale');
-    scaleSelect.onchange = function() {
-        scale = parseInt(scaleSelect.value, 10);
-        halfScale = scale/2;
-        window.onresize();
-    };
-    scaleSelect.onchange(); */
-})();
-
 // Initialize
 document.addEventListener("DOMContentLoaded", function(event) {
   setTimeout( function(){
@@ -195,7 +149,3 @@ document.addEventListener("DOMContentLoaded", function(event) {
     setTimeout(randomTap, getRandomInt(1,15)*1000);
   }, 1000);
 })
-
-// WHAT IS GOIGN ON, DISPLAYFUSION?
-var sheesh = setInterval(onResize, 1000);
-setTimeout(function() { window.clearInterval(sheesh); }, 10000);
